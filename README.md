@@ -67,21 +67,21 @@ public class AsyncService {
 
 这里我们没有对这个方法开启异步，要等待3s钟，也就是说前台访问页面要在3s后才可以打出“OK”
 
-![image-20200514185453624](I:\blog\source\_posts\异步、邮件、定时任务.assets\image-20200514185453624.png)
+![image-20200514185453624](https://i.loli.net/2020/05/14/z2SDCgnBy85iAoZ.png)
 
 **3s后：**
 
-![image-20200514185506810](I:\blog\source\_posts\异步、邮件、定时任务.assets\image-20200514185506810.png)
+![image-20200514185506810](https://i.loli.net/2020/05/14/dkD1EmqMAf2KbY6.png)
 
 ## 1.3 实现异步任务只需要两步
 
 1. 在SpringBoot的**主启动类上加上@EnableAsync注解**。开启异步功能
 
-![image-20200514185541559](I:\blog\source\_posts\异步、邮件、定时任务.assets\image-20200514185541559.png)
+![image-20200514185541559](https://i.loli.net/2020/05/14/gBAqPF87lnXHr4Q.png)
 
 2. 在**service的对应方法上加上@Async**，标志这是一个异步方法
 
-![image-20200514185644496](I:\blog\source\_posts\异步、邮件、定时任务.assets\image-20200514185644496.png)
+![image-20200514185644496](https://i.loli.net/2020/05/14/dNuZyx91n2lH48s.png)
 
 3. 测试
 
@@ -114,15 +114,15 @@ public class AsyncService {
 
 ## 2.2 查看自动配置类： MailSenderAutoConfiguration
 
-![image-20200514191510986](I:\blog\source\_posts\异步、邮件、定时任务.assets\image-20200514191510986.png)
+![image-20200514191510986](https://i.loli.net/2020/05/14/hvKFCRwnNoP5S9D.png)
 
 在自动配置类中并没有Bean，我们去看一下他的导入类
 
-![image-20200514191630471](I:\blog\source\_posts\异步、邮件、定时任务.assets\image-20200514191630471.png)
+![image-20200514191630471](https://i.loli.net/2020/05/14/fWnjOa8hQXCltsk.png)
 
 我们再去看一下MailProperties：
 
-![image-20200514191738810](I:\blog\source\_posts\异步、邮件、定时任务.assets\image-20200514191738810.png)
+![image-20200514191738810](https://i.loli.net/2020/05/14/8MBqtdsrHTmUfZ4.png)
 
 可配置的属性大概有如下这一些，在application.yml的配置文件中前追问spring.mail
 
@@ -143,7 +143,7 @@ spring.mail.host=smtp.yeah.net
 
 ## 2.4 Spring单元测试
 
-![image-20200514192029279](I:\blog\source\_posts\异步、邮件、定时任务.assets\image-20200514192029279.png)
+![image-20200514192029279](https://i.loli.net/2020/05/14/klz62FnWLbafu5I.png)
 
 具体的邮件发送需要我们使用JavaMailSenderImpl类，然后邮件类型有：
 
@@ -202,7 +202,7 @@ class TaskspringbootApplicationTests {
 
 **cron表达式：**
 
-![image-20200514192604888](I:\blog\source\_posts\异步、邮件、定时任务.assets\image-20200514192604888.png)
+![image-20200514192604888](https://i.loli.net/2020/05/14/YNuXtQHMmRJGqnC.png)
 
 **测试步骤：**
 
@@ -210,7 +210,7 @@ class TaskspringbootApplicationTests {
 
 我们里面存在一个hello方法，他需要定时执行，怎么处理呢？
 
-```
+```java
 @Service
 public class ScheduledService {
    
@@ -226,7 +226,7 @@ public class ScheduledService {
 
 2、这里写完定时任务之后，我们需要在主程序上增加@EnableScheduling 开启定时任务功能
 
-```
+```java
 @EnableAsync //开启异步注解功能
 @EnableScheduling //开启基于注解的定时任务
 @SpringBootApplication
